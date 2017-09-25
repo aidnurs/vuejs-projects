@@ -4,6 +4,7 @@
       <h1>Tic Tac Toe</h1>
     </div>
     <grid></grid>
+    <button class="restart" @click="restart">Restart</button>
   </div>
 
 </template>
@@ -12,7 +13,13 @@
 import Grid from './components/Grid.vue';
 export default {
   components: { Grid },
-  name: 'app'
+  name: 'app',
+  methods: {
+    restart() {
+      Event.$emit('clearCell');
+      Event.$emit('gridReset');
+    }
+  }
 };
 </script>
 

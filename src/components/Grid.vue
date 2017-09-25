@@ -69,9 +69,9 @@ export default {
     gameStatus() {
       if (this.gameStatus === 'win') {
         this.gameStatusColor = 'statusWin';
-        this.gameStatusMessage = `${this.activePlayer} wins!`;
-        Event.$emit('win', this.activePlayer)
-        Event.$emit('freeze')
+        this.gameStatusMessage = `${this.nonActivePlayer} wins!`;
+        Event.$emit('win', this.activePlayer);
+        Event.$emit('freeze');
         return;
       } else if (this.gameStatus === 'draw') {
         this.gameStatusColor = 'statusDraw';
@@ -120,6 +120,9 @@ export default {
       this.moves++;
       this.gameStatus = this.changeGameStatus();
       this.changePlayer();
+    });
+    Event.$on('gridReset', () => {
+      Object.assign(this.$data, this.$options.data());
     });
   }
 };
