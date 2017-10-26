@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <button @click="addNumber(but)" v-for="(but,index) in buttons">{{but}}</button>
+    <button @click="addNumber(but)" v-for="(but,index) in buttons"  v-bind:id="'color'+(++index)">{{but}}</button>
     {{arr}}
     {{input}}
     {{trueStory}}
@@ -9,34 +9,63 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      buttons:[1,2,3,4],
-      input:[],
-      number:0,
-      arr:[1],
-      trueStory:false,
-    }
+      buttons: [1, 2, 3, 4],
+      input: [],
+      number: 0,
+      arr: [],
+      trueStory: false
+    };
   },
-  methods:{
-    addNumber(a){
+  mounted() {
+    this.generate();
+  },
+  methods: {
+    addNumber(a) {
       this.input.push(a);
       this.check();
       this.generate();
     },
-    check(){
-      if (this.arr===this.input) {
-        trueStory=true;
+    check() {
+      for (var i = 0; i < this.arr.length; i++) {
+        if (this.arr[i] === this.input[i]) {
+          this.trueStory = true;
+        } else {
+          this.trueStory = false;
+          break;
+        }
       }
     },
-    generate(){
-      this.number=Math.floor(Math.random() * 4)+1;
+    generate() {
+      this.number = Math.floor(Math.random() * 4) + 1;
       this.arr.push(this.number);
-      this.number=0;
+      this.number = 0;
     }
   }
-}
+};
 </script>
 
 <style lang="css">
+button{
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+}
+#color1{
+  background-color: ;
+}
+#color2{
+  background-color: ;
+}
+#color3{
+  background-color: ;
+}
+#color4{
+  background-color: ;
+}
+button:hover{background-color: #3e8e41}
+button:active{
+  transform: translateY(4px);
+}
 </style>
