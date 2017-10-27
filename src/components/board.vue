@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="">
-    <button @click="addNumber(but)" v-for="(but,index) in buttons"  v-bind:id="'color'+(++index)">{{but}}</button>
+  <div class="" >
+    <button @click="(trueStory)||(input.length===0)?addNumber(but):null" v-for="(but,index) in buttons" ref="refs" v-bind:id="'color'+(++index)">{{but}}</button>
     {{arr}}
     {{input}}
     {{trueStory}}
@@ -20,6 +20,8 @@ export default {
   },
   mounted() {
     this.generate();
+    //this.$refs.refs[0].click();
+    //console.log(this.$refs.refs[0]);
   },
   methods: {
     addNumber(a) {
