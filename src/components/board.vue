@@ -1,6 +1,10 @@
 <template lang="html">
   <div class="" >
-    <button @click="(trueStory)||(input.length===0)?addNumber(but):null" v-for="(but,index) in buttons" ref="refs" v-bind:id="'color'+(++index)">{{but}}</button>
+    <button
+    @click="(trueStory)||(arr.length===1)?addNumber(but):null"
+    v-for="(but,index) in buttons"
+    ref="refs"
+    v-bind:id="'color'+(++index)">{{but}}</button>
     {{arr}}
     {{input}}
     {{trueStory}}
@@ -20,17 +24,16 @@ export default {
   },
   mounted() {
     this.generate();
-    //this.$refs.refs[0].click();
-    //console.log(this.$refs.refs[0]);
+    this.showNumbers();
   },
   methods: {
     addNumber(a) {
       this.input.push(a);
       this.check();
-      this.generate();
+      this.showNumbers();
     },
     check() {
-      for (var i = 0; i < this.arr.length; i++) {
+      for (var i = 0; i < this.input.length; i++) {
         if (this.arr[i] === this.input[i]) {
           this.trueStory = true;
         } else {
@@ -38,11 +41,37 @@ export default {
           break;
         }
       }
+      if (this.arr.length === this.input.length) {
+        this.input = [];
+        this.generate();
+      }
     },
     generate() {
       this.number = Math.floor(Math.random() * 4) + 1;
       this.arr.push(this.number);
       this.number = 0;
+    },
+    showNumbers() {
+      /*function doSetTimeout(i) {
+        setTimeout(function() {
+          elem[[i]].classList.remove('big');
+          //console.log(elem[i]);
+        }, 1000);
+      }
+      var elem = this.$refs.refs;
+      for (var i = 0; i < this.arr.length; ++i) {
+        //console.log(elem[this.arr[i]-1]);
+        //console.log(this.arr[i]);
+        elem[this.arr[i] - 1].classList.add('big');
+        doSetTimeout(this.arr[i] - 1);
+      }*/
+      for (var i = 0; i < this.arr.length; i++) {
+        var elem = this.$refs.refs[this.arr[i] - 1];
+        elem.classList.add('big');
+        setTimeout(function() {
+          elem.classList.remove('big');
+        }, (  i+1)*1000);
+      }
     }
   }
 };
@@ -69,5 +98,9 @@ button{
 button:hover{background-color: #3e8e41}
 button:active{
   transform: translateY(4px);
+}
+.big{
+  width: 100px;
+  height: 100px;
 }
 </style>
