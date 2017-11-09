@@ -7,9 +7,9 @@
     {{arr}}
     {{input}}
     {{trueStory}}
-    <button @click="start">start</button>
+    <button @click="start" id="start">start</button>
     <!--<button @click="restart">restart</button>-->
-    <button @click="stop">stop</button>
+    <button @click="stop" id="stop">stop</button>
 
   </div>
 </template>
@@ -27,32 +27,35 @@ export default {
       isBoxTwoActive: false,
       isBoxThreeActive: false,
       isBoxFourActive: false,
-      timer:0,
+      timer: 0,
+      game: true
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     start() {
-      this.generate();
-      this.userTurn = true;
-      this.showNumbers();
+      if (this.game) {
+        this.generate();
+        this.userTurn = true;
+        this.showNumbers();
+        this.game = false;
+      }
     },
     restart() {
       this.arr = [];
       this.trueStory = true;
       this.start();
     },
-    stop(){
+    stop() {
       this.arr = [];
-      this.input=[];
+      this.input = [];
       this.trueStory = true;
+      this.game = true;
     },
     addNumber(a) {
-      if (this.trueStory&&this.userTurn) {
+      if (this.trueStory && this.userTurn) {
         this.input.push(a);
         this.check();
-
       }
     },
     check() {
@@ -79,7 +82,7 @@ export default {
       }
     },
     showNumbers() {
-      this.userTurn=false;
+      this.userTurn = false;
       var self = this;
       var i = 0;
       self.timer = setInterval(function() {
@@ -92,7 +95,7 @@ export default {
     },
     stopInterval: function() {
       clearInterval(this.timer);
-      this.userTurn=true;
+      this.userTurn = true;
     },
     clickEffect: function(boxNum) {
       var self = this;
@@ -138,7 +141,7 @@ button{
   height: 50px;
 }
 #color1{
-  background-color: ;
+  background-color: red;
 }
 #color2{
   background-color: ;
@@ -149,9 +152,16 @@ button{
 #color4{
   background-color: ;
 }
-button:hover{background-color: #3e8e41}
+#start{
+  border-radius: 100%;
+  background-color: #32CD32;
+}
+#stop{
+  border-radius: 100%;
+  background-color: #FF4500;
+}
 button:active{
-  transform: translateY(4px);
+  transform: translate3d(4px);
 }
 .big{
   width: 100px;
